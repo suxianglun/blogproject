@@ -5,7 +5,7 @@
 # @Describe :
 # @Version :
 from django import forms
-from comments.models import Comment
+from .models import Comment
 
 
 class CommentForm(forms.ModelForm):

@@ -56,5 +56,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        '''
+        Post 类的内部定义一个 Meta 类，并指定排序属性：
+        ordering 属性用来指定文章排序方式，['-created_time'] 指定了依据哪个属性的值进行排序，这里指定为按照文章发布时间排序，
+        且负号表示逆序排列。列表中可以用多个项，比如 ordering = ['-created_time', 'title'] ，
+        那么首先依据 created_time 排序，如果 created_time 相同，则再依据 title 排序。
+        '''
+        ordering = ['-create_time']
+
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})

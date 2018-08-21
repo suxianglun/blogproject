@@ -38,7 +38,6 @@ def detail(request, pk):
         'post': post,
         'form': form,
         'comment_list': comment_list,
-        'comment_num': len(comment_list),
     }
 
     return render(request, 'blog/detail.html', context=context)
