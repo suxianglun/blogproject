@@ -52,6 +52,13 @@ class Post(models.Model):
     # 作者
     author = models.ForeignKey(User)
 
+    # 阅读量 PositiveIntegerField 类型只允许其值大于等于0
+    views = models.PositiveIntegerField(default=0)
+
+    def increate_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.title

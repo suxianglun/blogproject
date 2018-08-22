@@ -25,6 +25,8 @@ def detail(request, pk):
     :return:
     '''
     post = get_object_or_404(Post, pk=pk)
+    # 增加阅读量并保存到数据库
+    post.increate_views()
     post.body = markdown.markdown(post.body, extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
