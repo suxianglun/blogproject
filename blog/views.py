@@ -15,6 +15,7 @@ class IndexView(ListView):
     template_name = 'blog/index.html'
     # context_object_name。指定获取的模型列表数据保存的变量名。这个变量会被传递给模板
     context_object_name = 'post_list'
+    paginate_by = 2
 
 
 def index(request):
