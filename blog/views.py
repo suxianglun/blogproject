@@ -15,7 +15,87 @@ class IndexView(ListView):
     template_name = 'blog/index.html'
     # context_object_name。指定获取的模型列表数据保存的变量名。这个变量会被传递给模板
     context_object_name = 'post_list'
+
     paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # 分页器
+        paginator = context.get('paginator')
+        # 页面对象
+        page = context.get('page_obj')
+        # 布尔值 是否分页
+        is_paginated = context.get('is_paginated')
+
+        pagination_data = self.pagination_data(paginator, page, is_paginated)
+
+        context.update(pagination_data)
+        return context
+
+    def pagination_data(self, paginator, page, is_paginated):
+        if not is_paginated:
+            return {}
+        # 分页的总页数
+        total_pages = paginator.num_pages
+        # 当前页页数
+        page_num = page.number
+        # 获得整个分页页码列表，比如分了四页，那么就是 [1, 2, 3, 4]
+        page_range = paginator.page_range
+        # 当前页面左边页码列表
+        left = []
+        # 当前页面右边页码列表
+        right = []
+        # 是否显示第一页
+        first = False
+        # 是否显示最后一行
+        last = False
+        # 是否显示当前页左边的省略号
+        left_has_more = False
+        # 是否显示当前页面右边的省略号
+        right_has_more = False
+
+        if page_num == 1:  # 当前页面是第一页
+            # 左边的页码列表为空，只计算右边页码列表  [1, 2, 3, 4, 5, 6, 7, 8, 9 ]  [1, 2, 3, ]
+            right = page_range[page_num:(page_num + 4) if page_num + 4 < total_pages else total_pages]
+            # 由于当前页面已经是第一页了，所有不需要再显示第一页了，否则会重复
+            first = False
+            # 不显示左边的省略号, 当前页面右边页码列表最后页码小于倒数第二页，显示右边省略号
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        elif page_num == total_pages:  # 当前页面是最后一页  [1, 2, 3, 4, 5, 6, 7, 8, 9 ] [ 1, 2, 3 ]
+            left = page_range[(page_num - 4) if page_num - 4 > 0 else 0:page_num-1]
+            # 显示第一页，由于当前页面已经是最后一页了，不再显示最后一页
+            # 如果最左边的页码号比第 2 页页码号还大，
+            # 说明最左边的页码号和第 1 页的页码号之间还有其它页码，因此需要显示省略号，通过 left_has_more 来指示。
+            if left[0] > 2:
+                left_has_more = True
+            # 如果最左边的页码号比第 1 页的页码号大，说明当前页左边的连续页码号中不包含第一页的页码，
+            # 所以需要显示第一页的页码号，通过 first 来指示
+            if left[0] > 1:
+                first = True
+
+        else:  # [1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+            left = page_range[(page_num - 4) if page_num - 4 > 0 else 0:page_num - 1]
+            right = page_range[page_num:page_num + 3]
+            if left[0] > 1:
+                first = True
+            if left[0] > 2:
+                left_has_more = True
+            if right[-1] < total_pages:
+                last = True
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+        data = {
+            'left': left,
+            'right': right,
+            'left_has_more': left_has_more,
+            'right_has_more': right_has_more,
+            'first': first,
+            'last': last,
+        }
+        return data
 
 
 def index(request):
@@ -29,7 +109,6 @@ def index(request):
 
 
 class PostDetailView(DetailView):
-
     def get(self, request, *args, **kwargs):
         response = super(PostDetailView, self).get(self, request, *args, **kwargs)
         self.object.increat_vies()

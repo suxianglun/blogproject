@@ -33,20 +33,34 @@
         <a href="#">下一页</a>
     </div>
     -->
-    <div class="pagination" >
+    <div class="pagination" style="text-align: center; display: block; margin: 0 auto; width: 40%" >
         {% if is_paginated %}
-            {% if page_obj.has_previous %}
-                <div class="pagination_page_num" style="float: left; margin-left: 150px; font-size: 20px">
-                    <a href="?page={{ page_obj.previous_page_number }}"> 上一页</a>
-                </div>
+            {% if first %}
+                <a href="?page=1">1</a>
             {% endif %}
-            <div class="pagination_page_num" style="float: left; margin-left:85px; font-size: 20px">
-                <a href=""> 第{{ page_obj.number }}页</a><a href="">/共{{ paginator.num_pages }}页</a>
-            </div>
-            {% if page_obj.has_next %}
-                <div class="pagination_page_num" style="float: left; margin-left:85px;font-size: 20px" >
-                    <a href="?page={{ page_obj.next_page_number }}">下一页</a>
-                </div>
+            {% if left %}
+                {% if left_has_more %}
+                    <span >...</span>
+                {% endif %}
+                {% for i in left %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endfor %}
+
+            {% endif %}
+
+             <a href="?page={{ page_obj.number }}" style="display:inline-block;color: white; width:20px;height: 20px;border: 1px solid grey;border-radius: 2px; line-height: 20px; text-align: center; margin: 0 10px; font-size: 20px; background-color: #9d9d9d">{{ page_obj.number }}</a>
+
+            {% if right %}
+                {% if right_has_more %}
+                    <span >...</span>
+                {% endif %}
+                {% for i in right %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endfor %}
+
+            {% endif %}
+            {% if last %}
+                <a href="?page={{ paginator.num_pages }}" >{{ paginator.num_pages }}</a>
             {% endif %}
         {% endif %}
     </div>
