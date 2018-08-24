@@ -120,6 +120,7 @@
                         {% for tag in tags %}
                             <li>
                                 <a href="{% url  'blog:tag' tag.pk %}">{{ tag.name }}</a>
+                                <span>{{ tag.nums_posts }}</span>
                             </li>
                         {% endfor %}
                     </ul>

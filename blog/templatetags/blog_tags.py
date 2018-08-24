@@ -31,4 +31,4 @@ def get_categories():
 
 @register.simple_tag()
 def get_tags():
-    return Tag.objects.all()
+    return Tag.objects.annotate(nums_posts= Count('post')).filter(nums_posts__gt=0)
