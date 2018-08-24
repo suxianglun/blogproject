@@ -107,6 +107,7 @@
                        {% for category in categorys %}
                            <li>
                                <a href="{% url 'blog:category'  category.pk %}">{{ category.name }}</a>
+                                <sapn>{{ category.nums_posts }} 篇</sapn>
                            </li>
                        {% endfor %}
                     </ul>
