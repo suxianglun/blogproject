@@ -243,10 +243,12 @@ img {
 .post-category::after,
 .post-date::after,
 .post-author::after,
+.post-tag::after,
 .comments-link::after {
     content: ' ·';
     color: #000;
 }
+
 
 /**
  * 4.1 - Read More Button CSS 3 style

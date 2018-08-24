@@ -10,6 +10,9 @@
                 <span class="post-author"><a href="#">{{ post.author.name }}</a></span>
                 <span class="comments-link"><a href="#">4 评论</a></span>
                 <span class="views-count"><a href="#">{{ post.views }}阅读</a></span>
+                {% for tag in post.tag.all %}
+                    <span class="post-tag" style="color: #333">.{{ tag }}</span>
+                {% endfor %}
             </div>
         </header>
         <div class="entry-content clearfix">
