@@ -65,8 +65,8 @@ class IndexView(ListView):
             if right[-1] < total_pages:
                 last = True
         elif page_num == total_pages:  # 当前页面是最后一页  [1, 2, 3, 4, 5, 6, 7, 8, 9 ] [ 1, 2, 3 ]
-            left = page_range[(page_num - 4) if page_num - 4 > 0 else 0:page_num-1]
-            # 显示第一页，由于当前页面已经是最后一页了，不再显示最后一页
+            left = page_range[(page_num - 4) if page_num - 4 > 0 else 0:page_num - 1]
+            # 显示第一页，由于当前页面已经是最后 一页了，不再显示最后一页
             # 如果最左边的页码号比第 2 页页码号还大，
             # 说明最左边的页码号和第 1 页的页码号之间还有其它页码，因此需要显示省略号，通过 left_has_more 来指示。
             if left[0] > 2:
@@ -109,19 +109,27 @@ def index(request):
 
 
 class PostDetailView(DetailView):
+
+    model = Post
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
+
     def get(self, request, *args, **kwargs):
         response = super(PostDetailView, self).get(self, request, *args, **kwargs)
-        self.object.increat_vies()
+        self.object.increate_views()
         return response
 
     def get_object(self, queryset=None):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
         post = super(PostDetailView, self).get_object(queryset=None)
-        post.body = markdown.markdown(post.body, extensions=[
+        md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
             'markdown.extensions.toc',
         ])
+        # convert 方法将 post.body 中的 Markdown 文本渲染成 HTML 文本
+        post.body = md.convert(post.body)
+        post.toc = md.toc
         return post
 
     def get_context_data(self, **kwargs):
@@ -134,6 +142,7 @@ class PostDetailView(DetailView):
             'comment_list': comment_list
         })
         return context
+
 
 
 def detail(request, pk):
