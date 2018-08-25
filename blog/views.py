@@ -130,7 +130,7 @@ class PostDetailView(DetailView):
             TocExtension(slugify=slugify)
         ])
         # convert 方法将 post.body 中的 Markdown 文本渲染成 HTML 文本
-        post.body = md.convert(post.body)git
+        post.body = md.convert(post.body)
         post.toc = md.toc
         return post
 
