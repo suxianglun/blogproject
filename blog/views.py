@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404
 from .models import Post, Category, Tag
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
-
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
 
 # Create your views here.
 class IndexView(ListView):
@@ -125,10 +126,11 @@ class PostDetailView(DetailView):
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
-            'markdown.extensions.toc',
+            # 'markdown.extensions.toc',
+            TocExtension(slugify=slugify)
         ])
         # convert 方法将 post.body 中的 Markdown 文本渲染成 HTML 文本
-        post.body = md.convert(post.body)
+        post.body = md.convert(post.body)git
         post.toc = md.toc
         return post
 
