@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'comments',
+    'haystack',
+
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+# haystack 搜索配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',# 搜索引擎
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'), # 索引文件存放的位置
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10 # 搜索结果进行分页
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor' # 作用：文章更新时更新索引
