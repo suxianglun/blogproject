@@ -6,6 +6,8 @@ from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
+from django.db.models import Q
+
 
 # Create your views here.
 class IndexView(ListView):
@@ -110,7 +112,6 @@ def index(request):
 
 
 class PostDetailView(DetailView):
-
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
@@ -144,7 +145,6 @@ class PostDetailView(DetailView):
             'comment_list': comment_list
         })
         return context
-
 
 
 def detail(request, pk):
@@ -226,3 +226,13 @@ def tag(request, pk):
     tag_obj = get_object_or_404(Tag, pk=pk)
     post_list = Post.objects.filter(tag=tag_obj).order_by('-create_time')
     return render(request, 'blog/index.html', context={'post_list': post_list})
+
+
+def search(request):
+    q = request.GET.get('q')
+    err_msg = ''
+    if not q:
+        err_msg = '无法搜索到先关内容'
+        return render(request, 'blog/index.html', {'err_msg': err_msg})
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'err_msg': err_msg, 'post_list': post_list})
