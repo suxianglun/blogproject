@@ -19,7 +19,7 @@ class IndexView(ListView):
     # context_object_name。指定获取的模型列表数据保存的变量名。这个变量会被传递给模板
     context_object_name = 'post_list'
 
-    paginate_by = 2
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -232,7 +232,7 @@ def search(request):
     q = request.GET.get('q')
     err_msg = ''
     if not q:
-        err_msg = '无法搜索到先关内容'
+        err_msg = '无法搜索到相关内容'
         return render(request, 'blog/index.html', {'err_msg': err_msg})
     post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
     return render(request, 'blog/index.html', {'err_msg': err_msg, 'post_list': post_list})

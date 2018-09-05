@@ -4,68 +4,92 @@
         <p>{{ err_msg }}</p>
     {% endif %}
     {% for post in post_list %}
-        <article class="post {{ post.pk }}">
-            <header class="entry-header">
-                <h1 class="entry-title">
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                </h1>
-                <div class="entry-meta">
-                    <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
-                    <span class="post-date"><a href="#"><time class="entry-date"
-                                                              datetime="2012-11-09T23:15:57+00:00">{{ post.create_time }}</time></a></span>
-                    <span class="post-author"><a href="#">{{ post.author.name }}</a></span>
-                    <span class="comments-link"><a href="#">4 评论</a></span>
-                    <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
-                </div>
-            </header>
-            <div class="entry-content clearfix">
-                <p>{{ post.excerpt }}</p>
-                <div class="read-more cl-effect-14">
-                    <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
-                </div>
+        <div class="col-md-12">
+            <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+            <p style="color: #777">{{ post.excerpt }}</p>
+            <div>
+                <span class="post-category"><a href="javascript:void (0)" style="color: #777">{{ post.category.name }}</a></span>
+                <span class="post-date"><a href="javascript:void (0)" style="color: #777"><time class="entry-date"
+                                                          datetime="2012-11-09T23:15:57+00:00">{{ post.create_time }}</time></a></span>
+                <span class="post-author"><a href="javascript:void (0)" style="color: #777">{{ post.author.name }}</a></span>
+                <span class="comments-link"><a href="javascript:void (0)" style="color: #777">4 评论</a></span>
+                <span class="views-count"><a href="javascript:void (0)" style="color: #777">{{ post.views }} 阅读</a></span>
             </div>
-        </article>
+            <div class="read-more cl-effect-14">>
+                <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+            </div>
+        </div>
+
+{#        <article class="post {{ post.pk }}">#}
+{#            <header class="entry-header" style="text-align:left">#}
+{#                <h5 class="entry-title">#}
+{#                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>#}
+{#                </h5>#}
+{#            </header>#}
+{#            <div class="entry-content clearfix">#}
+{#                <p>{{ post.excerpt }}</p>#}
+{#                <div class="entry-meta">#}
+{#                    <span class="post-category"><a href="#">{{ post.category.name }}</a></span>#}
+{#                    <span class="post-date"><a href="#"><time class="entry-date"#}
+{#                                                              datetime="2012-11-09T23:15:57+00:00">{{ post.create_time }}</time></a></span>#}
+{#                    <span class="post-author"><a href="#">{{ post.author.name }}</a></span>#}
+{#                    <span class="comments-link"><a href="#">4 评论</a></span>#}
+{#                    <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>#}
+{#                </div>#}
+{#                <div class="read-more cl-effect-14">#}
+{#                    <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </article>#}
     {% empty %}
         <div class="no-post">暂时还没有发布的文章！</div>
     {% endfor %}
 
-    <!-- 简单分页效果
-    <div class="pagination-simple">
-        <a href="#">上一页</a>
-        <span class="current">第 6 页 / 共 11 页</span>
-        <a href="#">下一页</a>
-    </div>
-    -->
-    <div class="pagination" style="text-align: center; display: block; margin: 0 auto; width: 40%" >
-        {% if is_paginated %}
-            {% if first %}
-                <a href="?page=1">1</a>
-            {% endif %}
-            {% if left %}
-                {% if left_has_more %}
-                    <span >...</span>
+    <!-- 简单分页效果-->
+    <nav aria-label="Page navigation" style="text-align: center">
+        <ul class="pagination">
+            <li>
+                <a href="?page={{ page_obj.number|add:-1 }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            {% if is_paginated %}
+                {% if first %}
+                    <li><a href="?page=1">1</a></li>
                 {% endif %}
-                {% for i in left %}
-                    <a href="?page={{ i }}">{{ i }}</a>
-                {% endfor %}
+                {% if left %}
+                    {% if left_has_more %}
+                        <li><span>...</span></li>
+                    {% endif %}
+                    {% for i in left %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
 
-            {% endif %}
-
-             <a href="?page={{ page_obj.number }}" style="display:inline-block;color: white; width:20px;height: 20px;border: 1px solid grey;border-radius: 2px; line-height: 20px; text-align: center; margin: 0 10px; font-size: 20px; background-color: #9d9d9d">{{ page_obj.number }}</a>
-
-            {% if right %}
-
-                {% for i in right %}
-                    <a href="?page={{ i }}">{{ i }}</a>
-                {% endfor %}
-                {% if right_has_more %}
-                    <span >...</span>
                 {% endif %}
 
+                <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+                {% if right %}
+
+                    {% for i in right %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if right_has_more %}
+                        <li><span>...</span></li>
+                    {% endif %}
+
+                {% endif %}
+                {% if last %}
+                    <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+                {% endif %}
             {% endif %}
-            {% if last %}
-                <a href="?page={{ paginator.num_pages }}" >{{ paginator.num_pages }}</a>
-            {% endif %}
-        {% endif %}
-    </div>
-{% endblock main%}
+            <li>
+                <a href="?page={{ paginator.number|add:1 }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock main %}
