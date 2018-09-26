@@ -146,6 +146,9 @@ class PostDetailView(DetailView):
         })
         return context
 
+    def post(self,request):
+        return
+
 
 def detail(request, pk):
     '''
