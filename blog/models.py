@@ -5,7 +5,7 @@ from django.utils.six import python_2_unicode_compatible
 from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
-
+from django.conf import settings
 class Category(models.Model):
     '''
     分类
@@ -49,9 +49,8 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     # 标签  根据需求 多对多关系： 一篇文章有多个标签，一个标签有多个文章
     tag = models.ManyToManyField(Tag, blank=True)
-
     # 作者
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     # 阅读量 PositiveIntegerField 类型只允许其值大于等于0
     views = models.PositiveIntegerField(default=0)

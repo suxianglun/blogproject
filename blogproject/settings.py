@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'blog',
     'comments',
     'haystack',
+    'users',
 
 ]
 
@@ -56,6 +57,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blogproject.urls'
+
+# 指定自定义用户模型
+AUTH_USER_MODEL ='users.User'
 
 TEMPLATES = [
     {
@@ -84,7 +88,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysql',
+        'NAME': 'blogproject',
         'USER': 'root',
         'PASSWORD': 'qwer1234',
         'HOST': 'localhost',

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from blog.models import Post, Category, Tag
-
+from users.models import User
+from comments.models import Comment
 
 # Register your models here.
 # 通过注册PostAdmin 继承admin.ModelAdmin 自定义Post
