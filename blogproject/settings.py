@@ -60,6 +60,9 @@ ROOT_URLCONF = 'blogproject.urls'
 
 # 指定自定义用户模型
 AUTH_USER_MODEL ='users.User'
+# 通过输入网址进入登录或者注销页面,登录或注销后的跳转页面都回到首页
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
