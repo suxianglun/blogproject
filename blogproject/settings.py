@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -28,7 +28,6 @@ SECRET_KEY = 'sio)oe8l$3l-76um60(t8#!qd!^ez=&vke7!42*wi9fzt0o=lj'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -59,12 +58,17 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'blogproject.urls'
 
 # 指定自定义用户模型
-AUTH_USER_MODEL ='users.User'
+AUTH_USER_MODEL = 'users.User'
 # 通过输入网址进入登录或者注销页面,登录或注销后的跳转页面都回到首页
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 # 发送邮件
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# 自定义认证后台
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailBackend',
+)
 
 TEMPLATES = [
     {
@@ -84,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -100,7 +103,6 @@ DATABASES = {
         'POST': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -120,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -136,7 +137,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -144,9 +144,9 @@ STATIC_URL = '/static/'
 # haystack 搜索配置
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',# 搜索引擎
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index'), # 索引文件存放的位置
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',  # 搜索引擎
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),  # 索引文件存放的位置
     },
 }
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10 # 搜索结果进行分页
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor' # 作用：文章更新时更新索引
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10  # 搜索结果进行分页
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 作用：文章更新时更新索引
