@@ -51,10 +51,13 @@
                             <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="首页">首页</a></li>
                             <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="博客">博客</a></li>
                             {% if user.is_authenticated %}
-                                <li class="cl-effect-11"><a href="{% url 'logout' %}?next={{ request.path }}" data-hover="注销">注销</a></li>
-                                <li class="cl-effect-11"><a href="{% url 'password_change' %}?next={{ request.path }}" data-hover="修改密码">修改密码</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'logout' %}?next={{ request.path }}"
+                                                            data-hover="注销">注销</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'password_change' %}?next={{ request.path }}"
+                                                            data-hover="修改密码">修改密码</a></li>
                             {% else %}
-                                <li class="cl-effect-11"><a href="{% url 'login' %}?next={{ request.path }}" data-hover="登录">登录</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'login' %}?next={{ request.path }}"
+                                                            data-hover="登录">登录</a></li>
                             {% endif %}
                             <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="关于">关于</a></li>
                         </ul>
@@ -99,7 +102,7 @@
                 </div>
                 <div class="widget widget-archives">
                     <h3 class="widget-title">归档</h3>
-                    {%  get_archives as data_list %}
+                    {% get_archives as data_list %}
                     <ul>
                         {% for data in  data_list %}
                             <li>
@@ -113,12 +116,12 @@
                     <h3 class="widget-title">分类</h3>
                     {% get_categories as categorys %}
                     <ul>
-                       {% for category in categorys %}
-                           <li>
-                               <a href="{% url 'blog:category'  category.pk %}">{{ category.name }}</a>
+                        {% for category in categorys %}
+                            <li>
+                                <a href="{% url 'blog:category'  category.pk %}">{{ category.name }}</a>
                                 <sapn>{{ category.nums_posts }} 篇</sapn>
-                           </li>
-                       {% endfor %}
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
 

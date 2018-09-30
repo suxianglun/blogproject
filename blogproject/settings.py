@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'sio)oe8l$3l-76um60(t8#!qd!^ez=&vke7!42*wi9fzt0o=lj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', 'www.suxianglun.com', 'suxianglun.com']
 
 # Application definition
 
@@ -93,8 +93,6 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blogproject',
         'USER': 'root',
@@ -139,8 +137,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+# 静态文件路径
 STATIC_URL = '/static/'
+# 静态文件加载目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # haystack 搜索配置
 HAYSTACK_CONNECTIONS = {
     'default': {
