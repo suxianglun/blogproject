@@ -20,28 +20,6 @@
             </div>
         </div>
 
-{#        <article class="post {{ post.pk }}">#}
-{#            <header class="entry-header" style="text-align:left">#}
-{#                <h5 class="entry-title">#}
-{#                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>#}
-{#                </h5>#}
-{#            </header>#}
-{#            <div class="entry-content clearfix">#}
-{#                <p>{{ post.excerpt }}</p>#}
-{#                <div class="entry-meta">#}
-{#                    <span class="post-category"><a href="#">{{ post.category.name }}</a></span>#}
-{#                    <span class="post-date"><a href="#"><time class="entry-date"#}
-{#                                                              datetime="2012-11-09T23:15:57+00:00">{{ post.create_time }}</time></a></span>#}
-{#                    <span class="post-author"><a href="#">{{ post.author.name }}</a></span>#}
-{#                    <span class="comments-link"><a href="#">4 评论</a></span>#}
-{#                    <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>#}
-{#                </div>#}
-{#                <div class="read-more cl-effect-14">#}
-{#                    <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </article>#}
     {% empty %}
         <div class="no-post">暂时还没有发布的文章！</div>
     {% endfor %}

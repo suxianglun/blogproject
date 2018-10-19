@@ -1,7 +1,7 @@
-asn1crypto==0.24.0
-cffi==1.11.5
+asn1crypto==0.24.0 
+cffi==1.11.5 
 cryptography==2.3
-Django==1.10.6
+ Django==1.10.6 
 django-haystack==2.6.0
 idna==2.7
 jieba==0.39

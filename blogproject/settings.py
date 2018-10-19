@@ -26,6 +26,8 @@ SECRET_KEY = 'sio)oe8l$3l-76um60(t8#!qd!^ez=&vke7!42*wi9fzt0o=lj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# DEBUG = False # 上线的时候需要修改为False
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', 'www.suxianglun.com', 'suxianglun.com']
 
@@ -139,8 +141,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 # 静态文件路径
 STATIC_URL = '/static/'
-# 静态文件加载目录
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# 静态文件加载目录 上线的时候需要
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # haystack 搜索配置
 HAYSTACK_CONNECTIONS = {
     'default': {

@@ -204,7 +204,8 @@ class CategoryView(IndexView):
 
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
-        return super(CategoryView, self).get_queryset(category=cate)
+        # 该方法默认获取指定模型的全部列表数据。为了获取指定分类下的文章列表数据，我们覆写该方法，改变它的默认行为。
+        return super(CategoryView, self).get_queryset().filter(category=cate)
 
 
 def category(request, pk):

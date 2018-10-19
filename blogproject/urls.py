@@ -30,8 +30,8 @@ django.conf.urls 包含以下url
 """
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('blog.urls')),
-    url(r'', include('comments.urls')),
+    url(r'', include('blog.urls', namespace='blog')),
+    url(r'', include('comments.urls', namespace='comments')),
     url(r'^search/', include('haystack.urls')),
     url(r'^users/', include('users.urls')),
     url(r'^users/', include('django.contrib.auth.urls'))
