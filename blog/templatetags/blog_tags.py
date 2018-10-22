@@ -31,4 +31,21 @@ def get_categories():
 
 @register.simple_tag()
 def get_tags():
-    return Tag.objects.annotate(nums_posts= Count('post')).filter(nums_posts__gt=0)
+    return Tag.objects.annotate(nums_posts=Count('post')).filter(nums_posts__gt=0)
+
+
+@register.simple_tag()
+def next_page_num(current_num, total_num):
+    print('最后一页current_num=%s;total_num=%s' % (current_num, total_num))
+    if current_num == total_num:
+        return current_num
+    else:
+        return current_num + 1
+
+
+@register.simple_tag()
+def previous_page_num(current_num):
+    if current_num == 1:
+        return current_num
+    else:
+        return current_num - 1

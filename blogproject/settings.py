@@ -25,8 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'sio)oe8l$3l-76um60(t8#!qd!^ez=&vke7!42*wi9fzt0o=lj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 DEBUG = False
-# DEBUG = False # 上线的时候需要修改为False
+#  上线的时候需要修改为False
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', 'www.suxianglun.com', 'suxianglun.com']
