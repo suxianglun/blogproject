@@ -56,7 +56,6 @@ class IndexView(ListView):
         context.update(pagination_data)
         # 将更新后的 context 返回，以便 ListView 使用这个字典中的模板变量去渲染模板。
         # 注意此时 context 字典中已有了显示分页导航条所需的数据。
-        print(context)
         return context
 
     def pagination_data(self, paginator, page, is_paginated):
@@ -139,7 +138,6 @@ class IndexView(ListView):
             'first': first,
             'last': last,
         }
-        print(data)
         return data
 
 
