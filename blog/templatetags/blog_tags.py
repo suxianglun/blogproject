@@ -36,7 +36,6 @@ def get_tags():
 
 @register.simple_tag()
 def next_page_num(current_num, total_num):
-    print('最后一页current_num=%s;total_num=%s' % (current_num, total_num))
     if current_num == total_num:
         return current_num
     else:
