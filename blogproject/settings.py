@@ -28,8 +28,6 @@ SECRET_KEY = 'sio)oe8l$3l-76um60(t8#!qd!^ez=&vke7!42*wi9fzt0o=lj'
 # DEBUG = True
 DEBUG = False
 #  上线的时候需要修改为False
-
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', 'www.suxianglun.com', 'suxianglun.com']
 
 # Application definition
@@ -143,7 +141,7 @@ USE_TZ = True
 # 静态文件路径
 STATIC_URL = '/static/'
 # 静态文件加载目录 上线的时候需要
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # haystack 搜索配置
 HAYSTACK_CONNECTIONS = {
